@@ -1,0 +1,40 @@
+# Build directories
+build/
+build_legacy_cache/
+builds_py/
+
+# IDE / Editor files
+.vscode/
+.VSCodeCounter/
+.vs/
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+
+# Binaries & Libraries
+*.exe
+*.dll
+*.so
+*.dylib
+*.a
+*.lib
+*.obj
+*.o
+*.pdb
+
+# Archives & Temporary files
+*.zip
+*.tar
+*.gz
+*.7z
+*.tmp
+
+# Game save files generated during runtime
+savegame.json
+
+# CMake generated files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
