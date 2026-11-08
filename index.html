@@ -304,7 +304,8 @@ footer .ai::before{content:"⚡ "}
           .sort(function(a,b){return a.name<b.name?1:-1})
           .forEach(function(f){
             var size=f.size>1048576?(f.size/1048576).toFixed(1)+' MB':Math.max(1,Math.round(f.size/1024))+' KB';
-            var kind=/\.zip$/i.test(f.name)?'ZIP':'EXE';
+            var m=/\.(\w+)$/i.exec(f.name);
+            var kind=m?m[1].toUpperCase():'файл';
             var marks={ 'v6.0_gui_full.zip':'rec','v6.0_gui.exe':'dep' };
             var tag=marks[f.name]?'<span class="tag '+marks[f.name]+'">'+(marks[f.name]==='rec'?'рекомендуется':'нужны DLL')+'</span>':'';
             rows.push('<tr><td><code>'+f.name+'</code>'+tag+'</td><td>'+size+'</td><td><a class="dl" href="'+(f.download_url||f.html_url)+'">'+kind+'</a></td></tr>');
