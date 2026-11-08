@@ -120,6 +120,6 @@ v6.0 - GUI/
 ```
 
 ---
-##сайт
+
 
 https://chelicpubg228-design.github.io/copy_rust_vibe_code/
