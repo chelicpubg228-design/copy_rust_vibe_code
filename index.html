@@ -80,7 +80,7 @@ footer{border-top:1px solid var(--line);margin-top:64px;padding-top:20px;color:v
   <p class="lead">Графическая игра на выживание на <b>C++20 и SFML 3</b>. Исследуй сгенерированный остров, добывай ресурсы, крафти инструменты, охоться на зверей и переживай ночи у костра. Есть и консольный режим без графики.</p>
 
   <div class="btns">
-    <a class="btn main" href="https://github.com/chelicpubg228-design/copy_rust_vibe_code/raw/main/versions/v6.0_gui.exe">Скачать v6.0 GUI</a>
+    <a class="btn main" href="https://github.com/chelicpubg228-design/copy_rust_vibe_code/raw/main/versions/v6.0_gui_full.zip">⬇ Скачать v6.0 GUI (ZIP + DLL)</a>
     <a class="btn alt" href="https://github.com/chelicpubg228-design/copy_rust_vibe_code/raw/main/versions/v6.0_console.exe">Консольная версия</a>
     <a class="btn alt" href="https://github.com/chelicpubg228-design/copy_rust_vibe_code">Исходный код</a>
   </div>
@@ -159,15 +159,18 @@ footer{border-top:1px solid var(--line);margin-top:64px;padding-top:20px;color:v
   <table class="tbl">
     <thead><tr><th>Файл</th><th>Размер</th><th>Что это</th><th></th></tr></thead>
     <tbody id="vers">
-      <tr><td><code>v6.0_gui.exe</code></td><td>—</td><td class="muted">графическая версия (SFML 3)</td><td><a href="https://github.com/chelicpubg228-design/copy_rust_vibe_code/raw/main/versions/v6.0_gui.exe">Скачать</a></td></tr>
-      <tr><td><code>v6.0_console.exe</code></td><td>—</td><td class="muted">консольная версия (CLI)</td><td><a href="https://github.com/chelicpubg228-design/copy_rust_vibe_code/raw/main/versions/v6.0_console.exe">Скачать</a></td></tr>
+      <tr><td><code>v6.0_gui_full.zip</code></td><td>—</td><td class="muted">🎁 полная версия: exe + все DLL — распакуй и играй</td><td><a href="https://github.com/chelicpubg228-design/copy_rust_vibe_code/raw/main/versions/v6.0_gui_full.zip">Скачать</a></td></tr>
+      <tr><td><code>v6.0_gui.exe</code></td><td>—</td><td class="muted">только exe — требует SFML DLL рядом с файлом!</td><td><a href="https://github.com/chelicpubg228-design/copy_rust_vibe_code/raw/main/versions/v6.0_gui.exe">Скачать</a></td></tr>
+      <tr><td><code>v6.0_console.exe</code></td><td>—</td><td class="muted">консольная версия (CLI), работает без DLL</td><td><a href="https://github.com/chelicpubg228-design/copy_rust_vibe_code/raw/main/versions/v6.0_console.exe">Скачать</a></td></tr>
+      <tr><td><code>sfml-*-3.dll, freetype.dll, …</code></td><td>—</td><td class="muted">библиотеки для графической версии — лежат здесь же, рядом с exe</td><td></td></tr>
     </tbody>
   </table>
   </div>
+  <p class="rv muted">⚠️ Графической версии нужны DLL (SFML 3, freetype и др.) <b>рядом с exe</b>. Проще всего скачать ZIP <code>v6.0_gui_full.zip</code> — там уже всё в комплекте.</p>
   <p class="rv"><a href="https://github.com/chelicpubg228-design/copy_rust_vibe_code/tree/main/versions">Открыть папку versions на GitHub</a></p>
 
   <h2 class="rv">Как запустить</h2>
-  <p class="rv">Скачай <code>v6.0_gui.exe</code> (или консольную версию), положи в отдельную папку и запусти. Файл сохранения появится рядом с .exe. Если Windows покажет SmartScreen — «Подробнее» → «Выполнить в любом случае».</p>
+  <p class="rv">Скачай <code>v6.0_gui_full.zip</code>, распакуй в отдельную папку и запусти <code>real_copy_rust.exe</code> — DLL уже в комплекте, ничего доустанавливать не нужно. Консольная версия <code>v6.0_console.exe</code> работает вообще без DLL. Файл сохранения появится рядом с .exe. Если Windows покажет SmartScreen — «Подробнее» → «Выполнить в любом случае».</p>
 
   <h2 class="rv">Сборка из исходников</h2>
   <p class="rv">Нужны: Windows 10/11, Visual Studio 2022 (MSVC x64), CMake 3.20+ и vcpkg с пакетами <code>sfml</code> (3.x) и <code>nlohmann-json</code>.</p>
