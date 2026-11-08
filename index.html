@@ -1,424 +1,316 @@
 <!DOCTYPE html>
 <!--
   ============================================================
-  🏝️ copy_rust_vibe_code — сайт проекта Copy Rust 2D v6.0 (GUI)
-  Дизайн: «Ночной остров» (тёмный неон, glassmorphism)
-  ⚡ Сайт создан с помощью AI (искусственного интеллекта)
+  copy_rust_vibe_code — сайт проекта Copy Rust 2D v6.0 (GUI)
+  Дизайн: строгая тёмная тема, продакшн-уровень
+  ⚡ Сайт и документация созданы с помощью AI
   ============================================================
 -->
 <html lang="ru">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>copy_rust_vibe_code — Copy Rust 2D v6.0 GUI</title>
-<meta name="description" content="Copy Rust 2D v6.0 GUI Edition — выживание на острове на C++20 + SFML 3: день/ночь, крафт, охота, миникарта. Скачай ZIP с DLL или собери сам.">
+<title>Copy Rust 2D v6.0 GUI — выживание на острове | copy_rust_vibe_code</title>
+<meta name="description" content="Copy Rust 2D v6.0 GUI Edition — игра на выживание на C++20 и SFML 3: генерация острова, смена дня и ночи, крафт, охота, миникарта, автосохранение. Скачать сборку с DLL или собрать из исходников.">
+<meta name="keywords" content="copy rust, survival game, C++20, SFML 3, CMake, выживание, остров">
 <meta name="generator" content="AI-assisted development (copy_rust_vibe_code)">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Copy Rust 2D v6.0 — GUI Edition">
+<meta property="og:description" content="Игра на выживание на C++20 и SFML 3. Исследуй остров, крафти инструменты, переживай ночи у костра.">
+<meta property="og:url" content="https://chelicpubg228-design.github.io/copy_rust_vibe_code/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌲</text></svg>">
 <style>
 :root{
-  --bg:#070d16; --bg2:#0b1524; --card:rgba(255,255,255,.045); --card-br:rgba(120,220,200,.16); --tr:rgba(127,149,163,.25);
-  --text:#dfeef0; --muted:#7f95a3; --acc:#2dd4bf; --acc2:#a3e635; --warn:#fbbf24; --bad:#fb7185;
-  --glow:rgba(45,212,191,.35); --radius:16px;
-}
-body.light{
-  --bg:#eef6f5; --bg2:#dfeeed; --card:rgba(255,255,255,.75); --card-br:rgba(19,120,110,.18);
-  --text:#0e2430; --muted:#54707c; --glow:rgba(19,167,150,.25);
+  --bg:#0f1216; --surface:#161b21; --surface2:#1c232b; --border:#2a323c;
+  --text:#e3e8ee; --muted:#8b98a5; --acc:#4cc38a; --acc-dim:#3aa372; --warn:#e5b567; --bad:#e5716e;
+  --mono:Consolas,"Cascadia Code","Courier New",monospace;
+  --radius:10px;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 "Segoe UI",system-ui,sans-serif;overflow-x:hidden;transition:background .5s,color .5s}
-
-/* ---------- фоновые слои ---------- */
-.aurora{position:fixed;inset:-30%;z-index:-3;background:
-  radial-gradient(38% 42% at 18% 22%,rgba(45,212,191,.13),transparent 60%),
-  radial-gradient(34% 40% at 82% 30%,rgba(163,230,53,.10),transparent 60%),
-  radial-gradient(42% 46% at 50% 88%,rgba(56,110,220,.12),transparent 62%);
-  filter:blur(30px);animation:aur 16s ease-in-out infinite alternate}
-@keyframes aur{to{transform:rotate(8deg) scale(1.06)}}
-body.light .aurora{opacity:.5}
-.stars{position:fixed;inset:0;z-index:-2;pointer-events:none}
-.stars i{position:absolute;width:2px;height:2px;border-radius:50%;background:#bfe9e2;opacity:.5;animation:tw 3.5s ease-in-out infinite alternate}
-body.light .stars{display:none}
-@keyframes tw{from{opacity:.1}to{opacity:.85}}
-.fall{position:fixed;top:-8vh;left:0;width:100%;height:100vh;z-index:-1;pointer-events:none;overflow:hidden}
-.fall span{position:absolute;font-size:17px;opacity:0;animation:floaty linear infinite}
-.fall span:nth-child(1){left:6%;animation-duration:19s;animation-delay:0s}
-.fall span:nth-child(2){left:22%;animation-duration:23s;animation-delay:7s}
-.fall span:nth-child(3){left:41%;animation-duration:17s;animation-delay:3s}
-.fall span:nth-child(4){left:63%;animation-duration:25s;animation-delay:11s}
-.fall span:nth-child(5){left:80%;animation-duration:20s;animation-delay:5s}
-.fall span:nth-child(6){left:92%;animation-duration:22s;animation-delay:14s}
-@keyframes floaty{0%{transform:translateY(-6vh) rotate(-8deg);opacity:0}12%{opacity:.28}46%{transform:translateY(44vh) rotate(10deg);opacity:.22}82%{opacity:.14}100%{transform:translateY(104vh) rotate(-4deg);opacity:0}}
-body.light .fall{display:none}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.7 "Segoe UI",system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--acc);text-decoration:none}
+a:hover{text-decoration:underline}
+code{font-family:var(--mono);font-size:.88em;background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:1px 6px;color:#b8e4c9}
+h1,h2,h3{line-height:1.25;margin:0 0 14px;letter-spacing:-.015em}
+h2{font-size:1.45rem;padding-bottom:10px;border-bottom:1px solid var(--border)}
+h3{font-size:1.08rem}
+p{margin:0 0 14px}
+.muted{color:var(--muted)}
+.skip{position:absolute;left:-999px;top:0;background:var(--acc);color:#08130c;padding:8px 16px;border-radius:0 0 8px 0;font-weight:700;z-index:100}
+.skip:focus{left:0}
 
 /* ---------- навигация ---------- */
-nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
-  background:color-mix(in srgb,var(--bg) 72%,transparent);border-bottom:1px solid var(--card-br)}
-nav .in{max-width:1020px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-nav .logo{font:700 1rem Consolas,monospace;letter-spacing:-.02em;background:linear-gradient(90deg,var(--acc),var(--acc2));-webkit-background-clip:text;background-clip:text;color:transparent;cursor:pointer}
-nav a{color:var(--muted);text-decoration:none;font-size:.9rem;padding:7px 12px;border-radius:10px;transition:.25s}
-nav a:hover{color:var(--text);background:var(--card)}
-nav .spacer{flex:1}
-#theme{cursor:pointer;border:1px solid var(--card-br);background:var(--card);color:var(--text);border-radius:10px;padding:7px 12px;font-size:.9rem;transition:.25s}
-#theme:hover{border-color:var(--acc);box-shadow:0 0 14px var(--glow)}
+nav{position:sticky;top:0;z-index:50;background:rgba(15,18,22,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+nav .in{max-width:980px;margin:0 auto;padding:0 20px;height:58px;display:flex;align-items:center;gap:4px}
+nav .logo{font:700 .95rem var(--mono);color:var(--text);margin-right:14px;white-space:nowrap}
+nav .logo:hover{text-decoration:none}
+nav .logo span{color:var(--acc)}
+nav a.lnk{color:var(--muted);font-size:.92rem;padding:8px 11px;border-radius:7px;transition:color .2s,background .2s}
+nav a.lnk:hover{color:var(--text);background:var(--surface2);text-decoration:none}
+nav .gap{flex:1}
+nav .repo{font-size:.92rem;font-weight:600}
+@media (max-width:760px){nav a.lnk{display:none}}
 
-main{max-width:1020px;margin:0 auto;padding:0 20px 70px}
-section{scroll-margin-top:70px}
+main{max-width:980px;margin:0 auto;padding:0 20px 80px}
+section{padding-top:64px;scroll-margin-top:70px}
 
 /* ---------- герой ---------- */
-.hero{padding:84px 0 40px;text-align:center;position:relative}
-.hero .waves{position:absolute;left:50%;bottom:-30px;transform:translateX(-50%);width:520px;max-width:88vw;opacity:.9;pointer-events:none}
-.hero .waves i{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:64px;height:64px;border:1px solid var(--acc);border-radius:50%;opacity:0;animation:radar 3.2s ease-out infinite}
-.hero .waves i:nth-child(2){animation-delay:1.05s}
-.hero .waves i:nth-child(3){animation-delay:2.1s}
-@keyframes radar{0%{opacity:.5;transform:translateX(-50%) scale(.25)}100%{opacity:0;transform:translateX(-50%) scale(3.4)}}
-h1{font:800 clamp(2rem,6.4vw,3.5rem)/1.08 Consolas,"Courier New",monospace;letter-spacing:-.03em;margin:0 0 14px;
-  background:linear-gradient(100deg,var(--acc) 10%,var(--acc2) 55%,var(--acc) 90%);background-size:200% 100%;
-  -webkit-background-clip:text;background-clip:text;color:transparent;animation:sheen 7s linear infinite}
-@keyframes sheen{to{background-position:200% 0}}
-.hero .badge{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--card-br);background:var(--card);
-  border-radius:999px;padding:7px 16px;font-size:.85rem;color:var(--muted);margin-bottom:18px;backdrop-filter:blur(8px)}
-.hero .badge b{color:var(--acc)}
-.hero p{max-width:64ch;margin:0 auto 22px;color:var(--muted);font-size:1.05rem}
-.btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:26px}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:14px;font-weight:700;font-size:.98rem;text-decoration:none;cursor:pointer;border:1px solid transparent;position:relative;transition:.25s}
-.btn.p{background:linear-gradient(120deg,var(--acc),var(--acc2));color:#04211c;box-shadow:0 6px 26px var(--glow)}
-.btn.p:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 10px 34px var(--glow)}
-.btn.g{color:var(--acc);border-color:var(--card-br);background:var(--card)}
-.btn.g:hover{border-color:var(--acc);box-shadow:0 0 20px var(--glow);transform:translateY(-3px)}
-.btn:active{transform:scale(.97)}
+.hero{padding:72px 0 8px}
+.hero .ver{display:inline-block;font:600 .8rem var(--mono);color:var(--acc);border:1px solid var(--acc-dim);border-radius:999px;padding:5px 14px;margin-bottom:18px;letter-spacing:.04em}
+.hero h1{font:800 clamp(2rem,5.5vw,3.1rem)/1.15 var(--mono)}
+.hero h1 em{font-style:normal;color:var(--acc)}
+.hero .lead{font-size:1.08rem;color:var(--muted);max-width:62ch;margin-bottom:26px}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+.meta span{font:500 .78rem var(--mono);color:var(--muted);border:1px solid var(--border);background:var(--surface);border-radius:6px;padding:4px 10px}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:9px;padding:12px 22px;border-radius:9px;font-weight:700;font-size:.96rem;transition:.2s;font-family:inherit}
+.btn.p{background:var(--acc);color:#08130c;box-shadow:0 4px 18px rgba(76,195,138,.25)}
+.btn.p:hover{background:#5ad199;text-decoration:none;transform:translateY(-2px);box-shadow:0 8px 24px rgba(76,195,138,.35)}
+.btn.s{background:var(--surface);color:var(--text);border:1px solid var(--border)}
+.btn.s:hover{border-color:var(--acc);color:var(--acc);text-decoration:none;transform:translateY(-2px)}
+.btn:active{transform:scale(.98)}
+
+/* ---------- уведомление ---------- */
+.note{display:flex;gap:12px;background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--warn);border-radius:var(--radius);padding:14px 18px;margin:26px 0;font-size:.93rem}
+.note b{color:var(--warn)}
+.note .i{flex-shrink:0}
 
 /* ---------- карточки ---------- */
-h2{font:800 1.35rem Consolas,monospace;letter-spacing:-.02em;margin:64px 0 8px;display:flex;align-items:center;gap:10px}
-h2::before{content:"";width:26px;height:3px;border-radius:2px;background:linear-gradient(90deg,var(--acc),var(--acc2));box-shadow:0 0 10px var(--glow)}
-.sub{color:var(--muted);margin:0 0 20px;max-width:70ch}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
-.card{background:var(--card);border:1px solid var(--card-br);border-radius:var(--radius);padding:20px 22px;backdrop-filter:blur(10px);transition:.3s;position:relative;overflow:hidden}
-.card::after{content:"";position:absolute;inset:0;border-radius:inherit;background:radial-gradient(240px 120px at 20% 0%,var(--glow),transparent 60%);opacity:0;transition:.4s;pointer-events:none}
-.card:hover{transform:translateY(-5px);border-color:var(--acc)}
-.card:hover::after{opacity:.7}
-.card b{display:flex;gap:8px;align-items:center;font-size:1.02rem;margin-bottom:6px}
-.card p{color:var(--muted);font-size:.93rem;margin:0}
-.card code{background:transparent;color:var(--acc);border:1px solid var(--card-br);border-radius:6px;padding:1px 6px;font-size:.85em}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:14px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px 22px;transition:border-color .25s,transform .25s}
+.card:hover{border-color:var(--acc-dim);transform:translateY(-2px)}
+.card .ic{font-size:1.3rem;margin-bottom:8px}
+.card b{display:block;margin-bottom:6px;font-size:1rem}
+.card p{color:var(--muted);font-size:.92rem;margin:0}
 
-/* ---------- таблицы ---------- */
-.tblwrap{border:1px solid var(--card-br);border-radius:var(--radius);background:var(--card);backdrop-filter:blur(10px);overflow-x:auto}
-table{width:100%;border-collapse:collapse;font-size:.93rem;min-width:560px}
-th,td{text-align:left;padding:11px 16px;border-bottom:1px solid var(--card-br)}
-th{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);position:sticky;top:0}
+/* ---------- таблицы ---------- -->
+.twrap{border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.93rem;min-width:540px}
+th{font:600 .74rem var(--mono);text-transform:uppercase;letter-spacing:.07em;color:var(--muted);text-align:left;padding:12px 18px;border-bottom:1px solid var(--border)}
+td{padding:11px 18px;border-bottom:1px solid var(--border)}
 tr:last-child td{border-bottom:none}
-tbody tr{transition:.2s}
-tbody tr:hover{background:rgba(45,212,191,.06)}
-td code,a code{font-family:Consolas,monospace;color:var(--acc);background:transparent}
-a{color:var(--acc)}
-.down{padding:6px 14px;border-radius:10px;border:1px solid var(--acc);color:var(--acc)!important;text-decoration:none;font-size:.85rem;font-weight:600;transition:.25s;white-space:nowrap}
-.down:hover{background:var(--acc);color:#04211c!important;box-shadow:0 0 16px var(--glow)}
+tbody tr{transition:background .15s}
+tbody tr:hover{background:rgba(76,195,138,.05)}
 
-/* ---------- симулятор ---------- */
-.sim{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:18px}
-.stat{background:var(--card);border:1px solid var(--card-br);border-radius:var(--radius);padding:16px;backdrop-filter:blur(10px)}
-.stat .lab{font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);display:flex;justify-content:space-between}
-.stat .lab output{color:var(--text);font-weight:700}
-.track{height:9px;border-radius:6px;background:var(--tr);overflow:hidden;margin-top:10px}
-.track i{display:block;height:100%;border-radius:6px;transition:width .45s cubic-bezier(.2,.9,.3,1)}
-.inv{display:flex;gap:18px;margin-top:14px;flex-wrap:wrap}
-.inv .item{border:1px dashed var(--card-br);border-radius:12px;padding:10px 18px;text-align:center;min-width:86px;transition:.3s}
-.inv .item:hover{border-style:solid;border-color:var(--acc);box-shadow:0 0 14px var(--glow)}
-.inv .item output{display:block;font-size:1.3rem;font-weight:800}
-.inv .item span{font-size:.78rem;color:var(--muted)}
-.acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
-.abtn{cursor:pointer;border:1px solid var(--card-br);background:var(--card);color:var(--text);border-radius:12px;padding:10px 18px;font-weight:600;font-size:.92rem;transition:.25s;font-family:inherit}
-.abtn:hover{border-color:var(--acc);box-shadow:0 0 16px var(--glow);transform:translateY(-2px)}
-.abtn:active{transform:scale(.96)}
-.day{color:var(--warn);font-weight:700}
-.console{margin-top:16px;border:1px solid var(--card-br);border-radius:var(--radius);background:rgba(4,10,18,.7);padding:12px 16px;max-height:190px;overflow-y:auto;font:12.5px/1.7 Consolas,monospace}
-body.light .console{background:rgba(255,255,255,.6)}
-.console p{margin:2px 0;white-space:pre-wrap}
-.c-ok{color:var(--acc2)}.c-bad{color:var(--bad)}.c-info{color:var(--muted)}.c-day{color:var(--warn)}
+/* ---------- версии ---------- */
+.tag{font:600 .72rem var(--mono);border-radius:5px;padding:2px 8px;margin-left:8px;vertical-align:2px;white-space:nowrap}
+.tag.rec{background:rgba(76,195,138,.14);color:var(--acc);border:1px solid var(--acc-dim)}
+.tag.dep{background:rgba(229,181,103,.12);color:var(--warn);border:1px solid rgba(229,181,103,.4)}
+.dl{display:inline-block;font:600 .84rem var(--mono);padding:5px 14px;border-radius:7px;border:1px solid var(--acc-dim);color:var(--acc);transition:.2s;white-space:nowrap}
+.dl:hover{background:var(--acc);color:#08130c;text-decoration:none}
 
-/* ---------- сборка ---------- */
-pre{background:rgba(4,10,18,.75);border:1px solid var(--card-br);border-radius:var(--radius);padding:18px 20px;overflow-x:auto;font:13px/1.7 Consolas,monospace;margin:0}
-body.light pre{background:rgba(255,255,255,.75)}
+/* ---------- код ---------- */
+pre{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;overflow-x:auto;font:13px/1.75 var(--mono);margin:0 0 16px}
 pre .c{color:var(--muted)}pre .k{color:var(--acc)}
 
 /* ---------- reveal ---------- */
-.rv{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
-.rv.in{opacity:1;transform:none}
-.grid .rv:nth-child(2){transition-delay:.1s}.grid .rv:nth-child(3){transition-delay:.2s}.grid .rv:nth-child(4){transition-delay:.3s}
+.rv{opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}
+.rv.on{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
 
-footer{border-top:1px solid var(--card-br);margin-top:80px;padding-top:24px;color:var(--muted);font-size:.88rem;text-align:center}
-footer .ai{color:var(--acc)}
-@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
-@media (max-width:640px){.hero{padding-top:56px}.btns .btn{width:100%;justify-content:center}}
+footer{border-top:1px solid var(--border);margin-top:70px;padding:26px 20px;color:var(--muted);font-size:.88rem}
+footer .in{max-width:980px;margin:0 auto;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+footer .ai{color:var(--muted)}
+footer .ai::before{content:"⚡ "}
+@media (max-width:640px){footer .in{flex-direction:column;text-align:center}}
 </style>
 </head>
 <body>
-<div class="aurora" aria-hidden="true"></div>
-<div class="stars" id="stars" aria-hidden="true"></div>
-<div class="fall" aria-hidden="true"><span>🌴</span><span>🌲</span><span>🔥</span><span>🌙</span><span>🪓</span><span>💎</span></div>
+<a class="skip" href="#content">К содержанию</a>
 
-<nav>
+<nav aria-label="Основная навигация">
   <div class="in">
-    <span class="logo" onclick="document.getElementById('top').scrollIntoView()">copy_rust_vibe_code</span>
-    <a href="#about">Об игре</a>
-    <a href="#controls">Управление</a>
-    <a href="#sim">Симулятор</a>
-    <a href="#versions">Версии</a>
-    <a href="#build">Сборка</a>
-    <span class="spacer"></span>
-    <button id="theme" title="День / ночь">🌙</button>
+    <a class="logo" href="#top">copy_rust<span>_vibe_code</span></a>
+    <a class="lnk" href="#overview">Обзор</a>
+    <a class="lnk" href="#controls">Управление</a>
+    <a class="lnk" href="#survival">Механики</a>
+    <a class="lnk" href="#cli">Консоль</a>
+    <a class="lnk" href="#versions">Версии</a>
+    <a class="lnk" href="#build">Сборка</a>
+    <span class="gap"></span>
+    <a class="lnk repo" href="https://github.com/chelicpubg228-design/copy_rust_vibe_code">GitHub ↗</a>
   </div>
 </nav>
 
-<main id="top">
-  <!-- ================= ГЕРОЙ ================= -->
-  <section class="hero">
-    <span class="badge">🌲 <b>v6.0</b> — GUI Edition · SFML 3 · C++20</span>
-    <h1>copy_rust_vibe_code</h1>
-    <p>Выживание на сгенерированном острове: добывай ресурсы днём, крафти инструменты, охоться на зверей и удерживай костёр до утра. Графическая версия на C++20 + SFML 3 и консольная — в одном комплекте.</p>
-    <div class="btns">
-      <a class="btn p" href="https://github.com/chelicpubg228-design/copy_rust_vibe_code/raw/main/versions/v6.0_gui_full.zip">⬇ Скачать v6.0 GUI · ZIP с DLL</a>
-      <a class="btn g" href="https://github.com/chelicpubg228-design/copy_rust_vibe_code/raw/main/versions/v6.0_console.exe">⌨ Консольная версия</a>
-      <a class="btn g" href="https://github.com/chelicpubg228-design/copy_rust_vibe_code">Исходники →</a>
+<main id="content">
+  <!-- ======== ГЕРОЙ ======== -->
+  <section class="hero" id="top">
+    <span class="ver">v6.0 · GUI EDITION</span>
+    <h1>Copy Rust 2D<em>_gui</em></h1>
+    <p class="lead">Игра на выживание с видом сверху на <strong>C++20 и SFML 3</strong>: процедурный остров, смена дня и ночи, добыча ресурсов, крафт инструментов, охота и автосохранение. Графический и консольный фронтенды на одном изолированном ядре.</p>
+    <div class="meta">
+      <span>C++20</span><span>SFML 3.0</span><span>CMake 3.20+</span><span>nlohmann-json</span><span>CTest</span><span>MIT</span>
     </div>
-    <div class="waves" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="cta">
+      <a class="btn p" href="https://github.com/chelicpubg228-design/copy_rust_vibe_code/raw/main/versions/v6.0_gui_full.zip">⬇ Скачать v6.0 (ZIP, с DLL)</a>
+      <a class="btn s" href="https://github.com/chelicpubg228-design/copy_rust_vibe_code/raw/main/versions/v6.0_console.exe">Консольная версия</a>
+      <a class="btn s" href="https://github.com/chelicpubg228-design/copy_rust_vibe_code">Исходный код</a>
+    </div>
+    <div class="note" role="note">
+      <span class="i">⚠️</span>
+      <span><b>Требование:</b> графической версии нужны SFML-библиотеки (DLL) в папке с <code>real_copy_rust.exe</code>. Скачивайте <code>v6.0_gui_full.zip</code> — DLL уже включены. Консольная версия работает автономно.</span>
+    </div>
   </section>
 
-  <!-- ================= ОБ ИГРЕ ================= -->
-  <section id="about">
-    <h2 class="rv">Что тебя ждёт</h2>
-    <p class="sub rv">Мир генерируется сам: деревья, рудные жилы, ягодные кусты и звери. День и ночь сменяются в реальном времени, а <code>savegame.json</code> пишется автоматически каждые 60 секунд и при выходе.</p>
+  <!-- ======== ОБЗОР ======== -->
+  <section id="overview">
+    <h2>Обзор проекта</h2>
+    <p class="muted rv">Ядро игры отделено от интерфейсов и покрыто автотестами — двадцать лет C++ не проходят зря.</p>
     <div class="grid">
-      <div class="card rv"><b>🧭 Остров у тебя под контролем</b><p>Иди клавишами или кликай мышью — персонаж сам дойдёт и соберёт всё рядом. Зум колесом, миникарта под <code>M</code>.</p></div>
-      <div class="card rv"><b>⛏️ Крафт и инструменты</b><p>Хотбар на <code>1</code>–<code>4</code>, меню крафта на <code>C</code>, инвентарь на <code>I</code>. Каменный топор → железо → броня.</p></div>
-      <div class="card rv"><b>🔥 Ночь не застанет врасплох</b><p>Показатели жизни расходуются на каждое действие. Отдых у костра на <code>R</code>, перекус на <code>F</code>.</p></div>
-      <div class="card rv"><b>🧪 Ядро тестируется</b><p>Игровое ядро отделено от UI и гоняется автотестами CTest — см. <code>tests/test_core.cpp</code>.</p></div>
+      <div class="card rv"><div class="ic">🧩</div><b>Изолированное ядро</b><p>Игровая логика (<code>cr::Game</code>, <code>src/core/</code>) не зависит ни от SFML, ни от консоли. Один код — два фронтенда.</p></div>
+      <div class="card rv"><div class="ic">🗺️</div><b>Процедурный мир</b><p>Генерация острова: деревья, рудные жилы, ягодные кусты, звери. Координатная система мира с тремя зонами удалённости.</p></div>
+      <div class="card rv"><div class="ic">🌓</div><b>День и ночь</b><p>Динамический цикл суток. Ночью видимость падает — возвращайтесь к лагерю и костру.</p></div>
+      <div class="card rv"><div class="ic">🪓</div><b>Добыча и крафт</b><p>Хотбар из 4 слотов, прочность инструментов, рецепты: каменный топор, железный топор, кирка, броня.</p></div>
+      <div class="card rv"><div class="ic">💾</div><b>Автосохранение</b><p>JSON v2 (<code>savegame.json</code>), автосейв каждые 60 секунд и при выходе, ручные слоты F5/F9.</p></div>
+      <div class="card rv"><div class="ic">🧪</div><b>Тесты CTest</b><p>Модульные тесты ядра (<code>tests/test_core.cpp</code>): показатели, крафт, бой. Запускаются одной командой.</p></div>
     </div>
   </section>
 
-  <!-- ================= УПРАВЛЕНИЕ ================= -->
+  <!-- ======== УПРАВЛЕНИЕ ======== -->
   <section id="controls">
-    <h2 class="rv">Управление</h2>
-    <p class="sub rv">Графическая версия (SFML 3). Консольные команды — ниже.</p>
-    <div class="tblwrap rv">
+    <h2>Управление (SFML GUI)</h2>
+    <div class="twrap rv">
       <table>
         <thead><tr><th>Клавиша</th><th>Действие</th></tr></thead>
         <tbody>
-          <tr><td><code>WASD</code> / стрелки</td><td>движение</td></tr>
-          <tr><td><code>Shift</code></td><td>бег (тратит энергию)</td></tr>
-          <tr><td><code>Space</code> / <code>E</code></td><td>сбор ресурсов / атака</td></tr>
-          <tr><td>ЛКМ / ПКМ</td><td>идти в точку, автосбор / отмена</td></tr>
-          <tr><td><code>1</code>–<code>4</code>, <code>Tab</code></td><td>выбор инструмента</td></tr>
-          <tr><td><code>C</code> / <code>I</code> / <code>M</code> / <code>H</code></td><td>крафт / инвентарь / карта / справка</td></tr>
-          <tr><td><code>F</code> / <code>R</code></td><td>еда / сон у костра и возрождение</td></tr>
-          <tr><td><code>F5</code> / <code>F9</code> / <code>F11</code></td><td>сохранить / загрузить / fullscreen</td></tr>
-          <tr><td>Колесо мыши</td><td>зум камеры</td></tr>
-          <tr><td><code>Esc</code></td><td>пауза, закрыть окна</td></tr>
+          <tr><td><code>WASD</code> / стрелки</td><td>движение персонажа</td></tr>
+          <tr><td><code>Shift</code></td><td>бег — ускорение, расходует энергию</td></tr>
+          <tr><td><code>Space</code> / <code>E</code></td><td>сбор ближайших ресурсов / атака</td></tr>
+          <tr><td>ЛКМ</td><td>перемещение в точку, автосбор, атака</td></tr>
+          <tr><td>ПКМ</td><td>отмена автоматического действия</td></tr>
+          <tr><td><code>1</code>–<code>4</code>, <code>Tab</code></td><td>выбор инструмента из хотбара</td></tr>
+          <tr><td><code>C</code> / <code>I</code></td><td>меню крафта / инвентарь</td></tr>
+          <tr><td><code>M</code> / <code>H</code></td><td>карта острова / окно справки</td></tr>
+          <tr><td><code>F</code> / <code>R</code></td><td>употребить еду / отдых у костра, возрождение</td></tr>
+          <tr><td><code>F1</code></td><td>переключение подсказок HUD</td></tr>
+          <tr><td><code>F5</code> / <code>F9</code></td><td>быстрое сохранение / загрузка</td></tr>
+          <tr><td><code>F11</code></td><td>полноэкранный режим</td></tr>
+          <tr><td>Колесо мыши</td><td>масштаб камеры (зум)</td></tr>
+          <tr><td><code>Esc</code></td><td>пауза / закрыть окна</td></tr>
         </tbody>
       </table>
     </div>
   </section>
 
-  <!-- ================= СИМУЛЯТОР ================= -->
-  <section id="sim">
-    <h2 class="rv">Демо выживания прямо в браузере</h2>
-    <p class="sub rv">Ключевые механики в миниатюре: показатели падают с каждым ходом. Продержись как можно больше дней!</p>
-    <div class="sim">
-      <div class="stat"><div class="lab">❤️ здоровье <output id="o_hp">100</output></div><div class="track"><i id="t_hp"></i></div></div>
-      <div class="stat"><div class="lab">🍖 еда <output id="o_food">100</output></div><div class="track"><i id="t_food"></i></div></div>
-      <div class="stat"><div class="lab">💧 вода <output id="o_water">100</output></div><div class="track"><i id="t_water"></i></div></div>
-      <div class="stat"><div class="lab">⚡ энергия <output id="o_energy">100</output></div><div class="track"><i id="t_energy"></i></div></div>
+  <!-- ======== МЕХАНИКИ ======== -->
+  <section id="survival">
+    <h2>Механики выживания</h2>
+    <div class="twrap rv">
+      <table>
+        <thead><tr><th>Показатель</th><th>Старт</th><th>Что происходит</th></tr></thead>
+        <tbody>
+          <tr><td>Здоровье (HP)</td><td>100</td><td>Падает от атак зверей. При 0 — смерть и возрождение у лагеря.</td></tr>
+          <tr><td>Еда</td><td>100</td><td>Тратится на любые действия. Восстанавливается ягодами и едой.</td></tr>
+          <tr><td>Вода</td><td>100</td><td>Тратится на любые действия. Следите, чтобы не закончилась.</td></tr>
+          <tr><td>Энергия</td><td>100</td><td>Тратится на бег и добычу. Восстанавливается сном у костра.</td></tr>
+          <tr><td>Время суток</td><td>утро</td><td>Меняется динамически; ночью выглядит и играет иначе.</td></tr>
+        </tbody>
+      </table>
     </div>
-    <div class="inv">
-      <div class="item">🍓<output id="o_berries">0</output><span>ягоды</span></div>
-      <div class="item">🪵<output id="o_wood">0</output><span>дерево</span></div>
-      <div class="item">🪨<output id="o_stone">0</output><span>камень</span></div>
-      <div class="item">🌅<output class="day" id="o_days">1</output><span>день</span></div>
-    </div>
-    <div class="acts">
-      <button class="abtn" onclick="act('gather')">🌿 собрать</button>
-      <button class="abtn" onclick="act('run')">🏃 бежать</button>
-      <button class="abtn" onclick="act('eat')">🍓 поесть</button>
-      <button class="abtn" onclick="act('drink')">💧 попить</button>
-      <button class="abtn" onclick="act('rest')">🔥 сон у костра</button>
-      <button class="abtn" onclick="act('skip')">⏭ далее</button>
-    </div>
-    <div class="console" id="log" aria-live="polite"></div>
+    <p class="muted rv" style="margin-top:14px">Смерть сбрасывает позицию и часть ресурсов — постройки лагеря остаются. Ресурсы иссякают: у каждого месторождения свой запас очков.</p>
   </section>
 
-  <!-- ================= CLI ================= -->
+  <!-- ======== CLI ======== -->
   <section id="cli">
-    <h2 class="rv">Консольный режим</h2>
-    <p class="sub rv">Полноценный CLI-фронтенд: работает без графики. Переключение языка — <code>lang ru|en</code>.</p>
-    <div class="tblwrap rv">
+    <h2>Консольный режим (CLI)</h2>
+    <p class="muted rv">Для серверов и окружений без графики. Команды:</p>
+    <div class="twrap rv">
       <table>
         <thead><tr><th>Команда</th><th>Команда</th><th>Команда</th></tr></thead>
         <tbody>
-          <tr><td><code>status</code> · <code>look</code></td><td><code>go n|s|e|w</code></td><td><code>gather</code> · <code>attack</code></td></tr>
-          <tr><td><code>inv</code> · <code>craft</code></td><td><code>tool 1-4</code> · <code>cycle</code></td><td><code>eat</code> · <code>rest</code></td></tr>
-          <tr><td><code>equip</code> · <code>unequip</code></td><td><code>save</code> · <code>load</code></td><td><code>help</code> · <code>quit</code></td></tr>
+          <tr><td><code>status</code>, <code>look</code></td><td><code>go n|s|e|w</code></td><td><code>gather</code>, <code>attack</code></td></tr>
+          <tr><td><code>inv</code>, <code>craft</code>, <code>tool &lt;1-4&gt;</code></td><td><code>cycle</code>, <code>eat</code>, <code>rest</code></td><td><code>equip</code>, <code>unequip</code></td></tr>
+          <tr><td><code>save</code>, <code>load</code></td><td><code>lang ru|en</code></td><td><code>help</code>, <code>quit</code></td></tr>
         </tbody>
       </table>
     </div>
   </section>
 
-  <!-- ================= ВЕРСИИ ================= -->
+  <!-- ======== ВЕРСИИ ======== -->
   <section id="versions">
-    <h2 class="rv">Версии и загрузки</h2>
-    <p class="sub rv">Список подтягивается прямо из папки <code>versions/</code> репозитория — закинь новую сборку, и она появится здесь сама. GUI-версии нужны DLL рядом с exe — проще качать ZIP, там всё в комплекте.</p>
-    <div class="tblwrap rv">
+    <h2>Версии</h2>
+    <p class="muted rv">Список загружается из папки <code>versions/</code> репозитория. Помещаете туда новую сборку — она появляется здесь автоматически.</p>
+    <div class="twrap rv">
       <table>
-        <thead><tr><th>Файл</th><th>Размер</th><th>Скачать</th></tr></thead>
+        <thead><tr><th>Файл</th><th>Размер</th><th>Загрузка</th></tr></thead>
         <tbody id="vers">
-          <tr><td><code>v6.0_gui_full.zip</code></td><td>1.1 MB</td><td><a class="down" href="https://github.com/chelicpubg228-design/copy_rust_vibe_code/raw/main/versions/v6.0_gui_full.zip">⬇ ZIP</a></td></tr>
-          <tr><td><code>v6.0_console.exe</code></td><td>340 KB</td><td><a class="down" href="https://github.com/chelicpubg228-design/copy_rust_vibe_code/raw/main/versions/v6.0_console.exe">⬇ EXE</a></td></tr>
+          <tr><td><code>v6.0_gui_full.zip</code><span class="tag rec">рекомендуется</span></td><td>—</td><td><a class="dl" href="https://github.com/chelicpubg228-design/copy_rust_vibe_code/raw/main/versions/v6.0_gui_full.zip">ZIP</a></td></tr>
+          <tr><td><code>v6.0_console.exe</code></td><td>—</td><td><a class="dl" href="https://github.com/chelicpubg228-design/copy_rust_vibe_code/raw/main/versions/v6.0_console.exe">EXE</a></td></tr>
+          <tr><td><code>v6.0_gui.exe</code><span class="tag dep">нужны DLL</span></td><td>—</td><td><a class="dl" href="https://github.com/chelicpubg228-design/copy_rust_vibe_code/raw/main/versions/v6.0_gui.exe">EXE</a></td></tr>
         </tbody>
       </table>
     </div>
   </section>
 
-  <!-- ================= СБОРКА ================= -->
+  <!-- ======== ЗАПУСК ======== -->
+  <section id="run">
+    <h2>Запуск</h2>
+    <ol class="rv" style="margin:0 0 14px;padding-left:22px;color:var(--muted)">
+      <li>Скачайте <code>v6.0_gui_full.zip</code> и распакуйте в отдельную папку.</li>
+      <li>Запустите <code>real_copy_rust.exe</code> (графика) или <code>copy_rust_console.exe</code> (консоль).</li>
+      <li>Файл сохранения появится рядом с exe. При предупреждении SmartScreen: «Подробнее → Выполнить в любом случае».</li>
+    </ol>
+  </section>
+
+  <!-- ======== СБОРКА ======== -->
   <section id="build">
-    <h2 class="rv">Сборка из исходников</h2>
-    <p class="sub rv">Нужны VS 2022 (MSVC x64), CMake 3.20+ и vcpkg с <code>sfml</code> 3.x и <code>nlohmann-json</code>.</p>
-    <pre class="rv"><span class="c"># 1. Клонируем</span>
+    <h2>Сборка из исходников</h2>
+    <p class="muted rv">Windows 10/11 · Visual Studio 2022 (MSVC x64) · CMake 3.20+ · vcpkg: <code>sfml</code> 3.x, <code>nlohmann-json</code> 3.12+</p>
+    <pre class="rv"><span class="c"># клонирование</span>
 <span class="k">git</span> clone https://github.com/chelicpubg228-design/copy_rust_vibe_code.git
 <span class="k">cd</span> copy_rust_vibe_code
 
-<span class="c"># 2. Генерируем сборку (vcpkg)</span>
+<span class="c"># генерация сборки (укажите toolchain вашего vcpkg)</span>
 <span class="k">cmake</span> -S . -B build -G "Visual Studio 17 2022" -A x64 ^
   -DCMAKE_TOOLCHAIN_FILE=D:/for_vv/vcpkg/scripts/buildsystems/vcpkg.cmake
 
-<span class="c"># 3. Собираем и запускаем</span>
+<span class="c"># компиляция Release</span>
 <span class="k">cmake</span> --build build --config Release
-.\build\Release\real_copy_rust.exe        <span class="c"># GUI</span>
-.\build\Release\copy_rust_console.exe     <span class="c"># CLI</span>
-<span class="k">ctest</span> --test-dir build -C Release --output-on-failure  <span class="c"># тесты</span></pre>
-  </section>
 
-  <footer>
-    <p>🏝️ copy_rust_vibe_code · v6.0 GUI · <a href="https://github.com/chelicpubg228-design/copy_rust_vibe_code">GitHub</a> · сайт: <a href="https://chelicpubg228-design.github.io/copy_rust_vibe_code/">chelicpubg228-design.github.io/copy_rust_vibe_code</a></p>
-    <p class="ai">⚡ Документация, сайт и вспомогательный код созданы с помощью AI (искусственного интеллекта)</p>
-  </footer>
+<span class="c"># запуск и тесты</span>
+.\build\Release\real_copy_rust.exe
+.\build\Release\copy_rust_console.exe
+<span class="k">ctest</span> --test-dir build -C Release --output-on-failure</pre>
+  </section>
 </main>
 
+<footer>
+  <div class="in">
+    <span>copy_rust_vibe_code · v6.0 GUI · <a href="https://github.com/chelicpubg228-design/copy_rust_vibe_code">GitHub</a></span>
+    <span class="ai">Документация, сайт и вспомогательный код созданы с помощью AI (искусственного интеллекта)</span>
+  </div>
+</footer>
+
 <script>
-document.body.classList.remove('no-js');
 (function(){
-  /* -------- звёздное небо -------- */
-  var st=document.getElementById('stars');
-  for(var i=0;i<70;i++){
-    var s=document.createElement('i');
-    s.style.left=(Math.random()*100)+'%';
-    s.style.top=(Math.random()*100)+'%';
-    s.style.animationDelay=(Math.random()*3.5)+'s';
-    s.style.transform='scale('+(0.5+Math.random())+')';
-    st.appendChild(s);
-  }
-
-  /* -------- тёмная / светлая тема -------- */
-  var tb=document.getElementById('theme');
-  try{ if(localStorage.getItem('cr_theme')==='light'){document.body.classList.add('light');tb.textContent='☀️'} }catch(e){}
-  tb.addEventListener('click',function(){
-    var l=document.body.classList.toggle('light');
-    tb.textContent=l?'☀️':'🌙';
-    try{localStorage.setItem('cr_theme',l?'light':'dark')}catch(e){}
-  });
-
-  /* -------- reveal при скролле -------- */
+  /* плавное появление секций при прокрутке */
   var els=document.querySelectorAll('.rv');
   if('IntersectionObserver' in window){
-    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}});
+    },{threshold:.12});
     els.forEach(function(e){io.observe(e)});
-  }else{els.forEach(function(e){e.classList.add('in')})}
+  }else{els.forEach(function(e){e.classList.add('on')})}
 
-  /* -------- версии из GitHub API -------- */
+  /* раздел «Версии» подтягивает файлы из репозитория через GitHub API */
   var tb=document.getElementById('vers');
-  fetch('https://api.github.com/repos/chelicpubg228-design/copy_rust_vibe_code/contents/versions').then(function(r){return r.ok?r.json():Promise.reject()}).then(function(list){
-    if(!Array.isArray(list)||!list.length)return;
-    list.sort(function(a,b){return a.name<b.name?1:-1});
-    var noteExtra={};
-    tb.textContent='';
-    list.forEach(function(f,i){
-      var href=f.download_url||f.html_url;
-      var kind=/\.(zip|rar|7z)$/i.test(f.name)?'ZIP':'файл';
-      var tr=document.createElement('tr');
-      tr.innerHTML='<td><code>'+f.name+'</code></td><td>'+(f.type==='dir'?'папка':f.size>1048576?(f.size/1048576).toFixed(1)+' MB':Math.max(1,Math.round(f.size/1024))+' KB')+'</td><td><a class="down" href="'+href+'">⬇ '+kind+'</a></td>';
-      tb.appendChild(tr);
-    });
-  }).catch(function(){});
-
-  /* ================= СИМУЛЯТОР ================= */
-  var S={hp:100,food:100,water:100,energy:100,berries:0,wood:0,stone:0,days:1};
-  var logBox=document.getElementById('log');
-  var cls={ok:'c-ok',bad:'c-bad',info:'c-info',day:'c-day'};
-
-  function say(t,c){var p=document.createElement('p');p.className=cls[c]||'c-info';p.textContent='› '+t;logBox.prepend(p);
-    while(logBox.children.length>30)logBox.removeChild(logBox.lastChild)}
-
-  function fmt(n){return Math.round(n)}
-
-  function render(){
-    ['hp','food','water','energy'].forEach(function(k){
-      var v=S[k];document.getElementById('o_'+k).textContent=fmt(v);
-      var el=document.getElementById('t_'+k);
-      el.style.width=Math.max(0,v)+'%';
-      el.style.background=v>50?'var(--acc)':v>22?'var(--warn)':'var(--bad)';
-    });
-    document.getElementById('o_berries').textContent=S.berries;
-    document.getElementById('o_wood').textContent=S.wood;
-    document.getElementById('o_stone').textContent=S.stone;
-    document.getElementById('o_days').textContent=S.days;
-  }
-
-  function die(msg){
-    say(msg,'bad');
-    say('Ты выжил '+S.days+' '+(S.days===1?'день':'дней')+'. Возрождение у лагеря…','info');
-    S.hp=100;S.food=100;S.water=100;S.energy=100;S.berries=0;S.wood=0;S.stone=0;S.days=1;
-  }
-
-  function tick(down){
-    S.food=Math.max(0,S.food-3-(down?1:0));
-    S.water=Math.max(0,S.water-4-(down?1:0));
-    if(S.food<=0){S.hp-=8;say('Голод! Ты теряешь здоровье…','bad')}
-    if(S.water<=0){S.hp-=10;say('Обезвоживание! Скорее жми 💧','bad')}
-    if(S.food>60&&S.water>60&&S.hp<100){S.hp=Math.min(100,S.hp+5)}
-    if(S.hp<=0){die('💀 Здоровье кончилось');}
-  }
-  function renday(){S.days++;say('🌅 наступил день '+S.days,'day');document.getElementById('o_days').textContent=S.days}
-
-  window.act=function(a){
-    if(a==='gather'){
-      if(S.energy<14){say('⚡ Слишком мало энергии. Отдохни у костра (🔥)','bad');return}
-      S.energy-=14;
-      var b=2+Math.floor(Math.random()*3),w=1+Math.floor(Math.random()*2),st=Math.random()<.5?1:0;
-      S.berries+=b;S.wood+=w;S.stone+=st;
-      say('🌿 Сбор удался: +'+b+' 🍓, +'+w+' 🪵'+(st?', +'+st+' 🪨':''),'ok');
-      var roll=Math.random();
-      if(roll<.12){say('🐺 Волк атакует! Потеря HP!','bad');S.hp-=12}
-      else if(roll<.2){say('🦌 Олень пробежал мимо','info')}
-      renday();
-    }else if(a==='run'){
-      if(S.energy<10){say('⚡ Нет сил даже бежать!','bad');return}
-      S.energy-=10;say('🏃 пробежка — минус энергия','info');renday();
-    }else if(a==='eat'){
-      if(S.berries<=0){say('🍓 Нечего есть. Собери ягод (🌿)','bad');return}
-      S.berries--;S.food=Math.min(100,S.food+22);
-      say('🍓 Съел ягоду: еда ↑','ok');
-    }else if(a==='drink'){
-      S.water=Math.min(100,S.water+28);
-      say('💧 Напился из ручья: вода ↑','ok');
-    }else if(a==='rest'){
-      if(S.energy>=100){say('🔥 Ты и так полон сил','info');return}
-      S.energy=Math.min(100,S.energy+32);S.food=Math.max(0,S.food-4);S.water=Math.max(0,S.water-4);
-      say('🔥 Сон у костра: энергия ↑','ok');renday();
-    }else if(a==='skip'){
-      say('⏭ Ты ждёшь и продолжаешь путь…','info');renday();
-    }
-    tick();render();
-  };
-  render();
-  say('Цель: продержись как можно больше дней. Показатель на нуле — персонаж гибнет','info');
-  say('Остров встречает тебя! Собирай 🌿, пей 💧, спи у костра 🔥. День переключается кнопкой ⏭','info');
+  fetch('https://api.github.com/repos/chelicpubg228-design/copy_rust_vibe_code/contents/versions')
+    .then(function(r){return r.ok?r.json():Promise.reject()})
+    .then(function(list){
+      if(!Array.isArray(list)||!list.length)return;
+      var rows=[];
+      list.filter(function(f){return f.type==='file'})
+          .sort(function(a,b){return a.name<b.name?1:-1})
+          .forEach(function(f){
+            var size=f.size>1048576?(f.size/1048576).toFixed(1)+' MB':Math.max(1,Math.round(f.size/1024))+' KB';
+            var kind=/\.zip$/i.test(f.name)?'ZIP':'EXE';
+            var marks={ 'v6.0_gui_full.zip':'rec','v6.0_gui.exe':'dep' };
+            var tag=marks[f.name]?'<span class="tag '+marks[f.name]+'">'+(marks[f.name]==='rec'?'рекомендуется':'нужны DLL')+'</span>':'';
+            rows.push('<tr><td><code>'+f.name+'</code>'+tag+'</td><td>'+size+'</td><td><a class="dl" href="'+(f.download_url||f.html_url)+'">'+kind+'</a></td></tr>');
+          });
+      if(rows.length){tb.innerHTML=rows.join('')}
+    }).catch(function(){});
 })();
 </script>
 </body>
