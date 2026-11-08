@@ -1,5 +1,10 @@
 # 🌲 Copy Rust 2D — copy_rust_vibe_code (v6.0 - GUI Edition)
 
+CLI версия - https://chelicpubg228-design.github.io/copy_rust/
+
+GUI версия - https://chelicpubg228-design.github.io/copy_rust_vibe_code/
+
+
 ![C++20](https://img.shields.io/badge/C%2B%2B-20-blue.svg)
 ![SFML](https://img.shields.io/badge/SFML-3.0-green.svg)
 ![CMake](https://img.shields.io/badge/CMake-3.20%2B-orange.svg)
@@ -122,4 +127,3 @@ v6.0 - GUI/
 ---
 
 
-https://chelicpubg228-design.github.io/copy_rust_vibe_code/
